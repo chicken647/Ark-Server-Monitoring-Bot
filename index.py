@@ -32,6 +32,7 @@ async def on_ready():
     activity = discord.Activity(name='Monitoring Ark Servers', type=discord.ActivityType.playing)
     await client.change_presence(activity=activity)
 
+   
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -104,5 +105,4 @@ async def on_message(message):
             embed = discord.Embed(title='Error Occurred', description=f'An error occurred while trying to retrieve the player count: {e}', color=0xff0000)
             await msg.edit(content=None, embed=embed)
             
-
 client.run("Put Your Bot Token Here!")

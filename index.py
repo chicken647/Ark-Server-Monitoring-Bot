@@ -21,8 +21,8 @@ TOKEN = 'Your Bot Token Here' #Add your Bot Token here
 OWNER_ID = 263004078911520779 #Don't Touch This
 
 IP_ADDRESSES = [
-    ('98.43.28.137', 27019), #Server IP #1 ('ip', port)
-    ('98.43.28.137', 27017), #Server IP #2 ('ip', port)
+    ('00.00.00.000', 00000), #Server IP #1 ('ip', port)
+    ('00.00.00.000', 00000), #Server IP #2 ('ip', port)
     #Copy and paste above to add more Servers. 
 ]
 GUILD_ID = 0000000000000000000 # Replace with the ID of the Discord Server to send join messages in. 

@@ -16,14 +16,47 @@ import a2s
 #The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 #THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-OWNER_ID = 263004078911520779
+TOKEN = 'Your Bot Token Here' #Add your Bot Token here
 
-IP_ADDRESSES = ['Ark Server Ip #1', 'Ark Server Ip #2']
+OWNER_ID = 263004078911520779 #Don't Touch This
 
+IP_ADDRESSES = [
+    ('98.43.28.137', 27019), #Server IP #1 ('ip', port)
+    ('98.43.28.137', 27017), #Server IP #2 ('ip', port)
+    #Copy and paste above to add more Servers. 
+]
+GUILD_ID = 0000000000000000000 # Replace with the ID of the Discord Server to send join messages in. 
+CHANNEL_ID = 0000000000000000000 # Replace with the ID of the channel to send the join messages in. 
+
+servers = IP_ADDRESSES
 intents = discord.Intents.all()
 intents.members = True
 
 client = discord.Client(intents=intents)
+
+async def on_player_connect(server_ip):
+    try:
+        info = a2s.info(address=server_ip)
+        player_count = info.player_count
+        map_name = info.map_name
+
+        # Check if player count has increased since last check
+        if server_ip in client.last_player_counts and player_count > client.last_player_counts[server_ip]:
+            # Get guild and channel objects
+            guild = client.get_guild(GUILD_ID)
+            channel = guild.get_channel(CHANNEL_ID)
+            
+            # Get player name
+            players = a2s.players(address=server_ip)
+            player_name = players[-1].name if len(players) > 0 else "Unknown"
+
+            # Send message to channel
+            await channel.send(f"{player_name} has connected to {map_name} on {server_ip[0]}:{server_ip[1]}!")
+
+        # Update last player count
+        client.last_player_counts[server_ip] = player_count
+    except:
+        pass
 
 @client.event
 async def on_ready():
@@ -32,18 +65,25 @@ async def on_ready():
     activity = discord.Activity(name='Monitoring Ark Servers', type=discord.ActivityType.playing)
     await client.change_presence(activity=activity)
 
-   
+    # Initialize last player counts dictionary
+    client.last_player_counts = {}
+    for server_ip in servers:
+        client.last_player_counts[server_ip] = 0
+
+    # Start checking for new players every minute
+    while True:
+        for server_ip in servers:
+            await on_player_connect(server_ip)
+        await asyncio.sleep(60)
+
 @client.event
 async def on_message(message):
     if message.author == client.user:
         return
 
     if message.content.startswith('!status'):
-        for server_ip in IP_ADDRESSES:
+        for server_ip in servers:
             try:
-                server_ip = server_ip.strip()
-                server_ip = server_ip.split(":")
-                server_ip = (server_ip[0], int(server_ip[1]))
                 info = a2s.info(address=server_ip)
                 players = a2s.players(address=server_ip)
                 player_count = info.player_count
@@ -68,8 +108,21 @@ async def on_message(message):
             except Exception as e:
                 embed = discord.Embed(title='Error Occurred', description=f'An error occurred while trying to retrieve the player count for {server_ip}: {e}', color=0xff0000)
                 await message.channel.send(embed=embed)
-
+                
+                
     if message.content.startswith('!players'):
+        try:
+            # Get total player count
+            total_players = sum([a2s.info(address=s).player_count for s in servers])
+            
+            # Send message to channel
+            await message.channel.send(f"There are currently {total_players} players across all servers.")
+        except:
+            embed = discord.Embed(title='Error Occurred', description=f'An error occurred while trying to retrieve the total player count.', color=0xff0000)
+            await message.channel.send(embed=embed)
+                
+
+    if message.content.startswith('!server'):
         msg = await message.channel.send('Getting player count...')
         server_ip = message.content.split()[1]
         server_ip = server_ip.split(":")
@@ -105,4 +158,4 @@ async def on_message(message):
             embed = discord.Embed(title='Error Occurred', description=f'An error occurred while trying to retrieve the player count: {e}', color=0xff0000)
             await msg.edit(content=None, embed=embed)
             
-client.run("Put Your Bot Token Here!")
+client.run(TOKEN)

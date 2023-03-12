@@ -19,4 +19,4 @@ Commands:
 
   !status - (If the server ip's are added to the index.py file, anyone can use this command to check the status of the servers.) 
   
-  !players [ip/port] - (Can by run by anyone to check the status of an ark server through the ip.) 
+  !server [ip/port] - (Can by run by anyone to check the status of an ark server through the ip.) 

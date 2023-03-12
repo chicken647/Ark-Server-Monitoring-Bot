@@ -7,6 +7,7 @@ Dependencies: python3, python3-pip, asyncio, discord.py and a2s
 
 For Ubuntu Servers, install the requirements manually with "pip install python-a2s", "pip install asyncio" and "python3 -m pip install -U discord.py"
 
+The Discord bot requires the discord "PRESENCE INTENT" "SERVER MEMBERS INTENT" and "MESSAGE CONTENT INTENT" to run. 
 Remember to put your discord bot token in the "client.run("Put Your Bot Token Here!")" section of the index.py
 Change the "IP_ADDRESSES" to the server IP's that you want to monitor with !status. 
 

@@ -1,38 +1,99 @@
-<h3 align="center">Ark Server Monitoring Bot</h3>
+# Ark Server Monitoring Discord Bot
 
-<p align="left"> <img src="https://komarev.com/ghpvc/?username=chicken647&label=Profile%20views&color=0e75b6&style=flat" alt="chicken647" /> </p>
-
-<h3 align="left"></h3>
-<p align="left">
-
-<h4 align="left">A free open-source ark server monitoring discord bot! </h4>
-<p align="left">
+A free open-source ark server monitoring discord bot! 
 
 Feel free to use this bot for your own personal servers or, any official/unofficial Ark Survival Evolved servers! 
 
-Dependencies: python3, python3-pip, asyncio, discord.py and a2s
-
-For Ubuntu Servers, install the requirements manually with "pip install python-a2s", "pip install asyncio" and "python3 -m pip install -U discord.py"
-
-The Discord bot requires the discord "PRESENCE INTENT" "SERVER MEMBERS INTENT" and "MESSAGE CONTENT INTENT" to run. 
-
-Remember to put your discord bot token in the "client.run("Put Your Bot Token Here!")" section of the index.py
-Change the "IP_ADDRESSES" to the server IP's that you want to monitor with !status. 
-
-Once you have added the required changes, run the file and enjoy the discord bot! 
+I recommend using Amazon AWS free server hosting to host your discord bot. 
 
 
-<h4 align="left">Commands: </h4>
-<p align="left">
+## Features
+
+- Ark Server Status
+- Ark Server Player Monitoring
+- Ark Player Alarms
+- Ark Player Join Count Tracking
+- Ark Automatic Player Join Notifications
 
 
-  !status - (If the server ip's are added to the index.py file, anyone can use this command to check the status of the servers.) 
-  
-  !server [ip/port] - (Can by run by anyone to check the status of an ark server through the ip.) 
+## Commands
+
+```javascript
+!status - (If the server ip's are added to the index.py file, anyone can use this command to check the status of the servers.)
+
+!server [ip/port] - (Can by run by anyone to check the status of an ark server through the ip.)
+```
 
 
+## Bot Setup
 
-</p>
+This setup works best when hosting the bot on an Linux Ubuntu Server. 
+
+Clone the project
+```bash
+  git clone https://github.com/chicken647/Ark-Server-Monitoring-Bot
+```
+
+Install Python
+```bash
+  install python3
+  install python3-pip
+```
+
+Go to the project directory
+
+```bash
+  cd my-project
+```
+
+Install dependencies
+
+```bash
+  python3 -m pip install -U discord.py
+  pip install python-a2s
+  pip install asyncio
+```
+
+Edit the index.py file
+
+```bash
+  Add your discord bot token here:
+   "TOKEN = 'Your Bot Token Here'"
+
+  Add the Ark Server IP's that you want to monitor
+    Replace the IP_ADDRESSES with your ark servers ip:port
+
+  Add your discord server ID
+    Replace the GUILD_ID with your discord servers ID
+
+  Add your discord channel ID for logging player join notifications  
+    Replace the CHANNEL_ID with your discord servers channel ID
+
+  Remember to SAVE the index.py file!
+```
+
+Discord Bot INTENT Requirements
+```bash
+  Grant the correct Intents through the Discord Developer Panel
+    "PRESENCE INTENT" 
+    "SERVER MEMBERS INTENT" 
+    "MESSAGE CONTENT INTENT" 
+```
+
+Start the discord bot
+
+```bash
+  python3 index.py
+```
+
+
+## Tech
+
+**Client:** Python3, Asyncio, Discord.py, A2S
+
+**Recommended Server:** Ubuntu [Linux]
+
 
 <h3 align="left">Support:</h3>
 <p><a href="https://ko-fi.com/chicken647"> <img align="left" src="https://cdn.ko-fi.com/cdn/kofi3.png?v=3" height="50" width="210" alt="chicken647" /></a></p><br><br>
+

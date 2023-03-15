@@ -107,7 +107,7 @@ Start the discord bot
 
 ## Tech
 
-**Client:** Python3, Asyncio, Discord.py, A2S
+**Client:** Python3, Asyncio, Discord.py, A2S, Steamid
 
 **Recommended Server:** Ubuntu [Linux]
 

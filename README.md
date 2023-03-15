@@ -16,12 +16,25 @@ I recommend using Amazon AWS free server hosting to host your discord bot.
 - Ark Automatic Player Join Notifications
 
 
+## New Features
+
+- Steam Community ID (64id) finder
+- Server Steam ID (64id) finder
+- Steam Profile Info Command
+- Steam Profile Recent Played Server Info
+
 ## Commands
 
 ```javascript
 !status - (If the server ip's are added to the index.py file, anyone can use this command to check the status of the servers.)
 
 !server [ip/port] - (Can by run by anyone to check the status of an ark server through the ip.)
+
+!check [ip/port] [or blank] - (Grabs connected players steam id's through ip/port or IP_ADDRESSES) 
+
+!id [steamid] - (Grabs profile information from a steamid) 
+
+!recent [steamid] - (Grabs recent played servers from a steamid)
 ```
 
 
@@ -52,6 +65,7 @@ Install dependencies
   python3 -m pip install -U discord.py
   pip install python-a2s
   pip install asyncio
+  pip install steamid
 ```
 
 Edit the index.py file
@@ -59,6 +73,10 @@ Edit the index.py file
 ```bash
   Add your discord bot token here:
    "TOKEN = 'Your Bot Token Here'"
+   
+   Add your Steam API Key here:
+    "STEAM_API_KEY = 'Your Steam API Key Here'" 
+      Get a Steam API Key from https://steamcommunity.com/dev/apikey
 
   Add the Ark Server IP's that you want to monitor
     Replace the IP_ADDRESSES with your ark servers ip:port
